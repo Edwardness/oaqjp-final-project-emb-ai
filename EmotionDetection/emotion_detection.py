@@ -2,10 +2,9 @@ import requests
 
 
 def emotion_detector(text_to_analyze):
-    """Detect emotions in text using the Watson NLP service."""
     url = (
-        "https://sn-watson-emotion.labs.skills.network"
-        "/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict"
+        "https://sn-watson-emotion.labs.skills.network/"
+        "v1/watson.runtime.nlp.v1/NlpService/EmotionPredict"
     )
 
     headers = {
@@ -22,14 +21,7 @@ def emotion_detector(text_to_analyze):
     response = requests.post(
         url,
         headers=headers,
-        json=payload,
-        timeout=30
+        json=payload
     )
 
-    response_data = response.json()
-    emotions = response_data["emotionPredictions"][0]["emotion"]
-
-    dominant_emotion = max(emotions, key=emotions.get)
-    emotions["dominant_emotion"] = dominant_emotion
-
-    return emotions
+    return response.text
